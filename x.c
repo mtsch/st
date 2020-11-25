@@ -2065,6 +2065,9 @@ main(int argc, char *argv[])
 	case 'd':
 		opt_dir = EARGF(usage());
 		break;
+        case 'C':
+		usealtcolors = 1;
+		break;
 	default:
 		usage();
 	} ARGEND;
