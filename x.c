@@ -862,34 +862,9 @@ xhints(void)
 	XClassHint class = {opt_name ? opt_name : termname,
 	                    opt_class ? opt_class : termname};
 	XWMHints wm = {.flags = InputHint, .input = 1};
-	XSizeHints *sizeh;
 
-	sizeh = XAllocSizeHints();
-
-	sizeh->flags = PSize | PResizeInc | PBaseSize | PMinSize;
-	sizeh->height = win.h;
-	sizeh->width = win.w;
-	sizeh->height_inc = win.ch;
-	sizeh->width_inc = win.cw;
-	sizeh->base_height = 2 * borderpx;
-	sizeh->base_width = 2 * borderpx;
-	sizeh->min_height = win.ch + 2 * borderpx;
-	sizeh->min_width = win.cw + 2 * borderpx;
-	if (xw.isfixed) {
-		sizeh->flags |= PMaxSize;
-		sizeh->min_width = sizeh->max_width = win.w;
-		sizeh->min_height = sizeh->max_height = win.h;
-	}
-	if (xw.gm & (XValue|YValue)) {
-		sizeh->flags |= USPosition | PWinGravity;
-		sizeh->x = xw.l;
-		sizeh->y = xw.t;
-		sizeh->win_gravity = xgeommasktogravity(xw.gm);
-	}
-
-	XSetWMProperties(xw.dpy, xw.win, NULL, NULL, NULL, 0, sizeh, &wm,
+	XSetWMProperties(xw.dpy, xw.win, NULL, NULL, NULL, 0, NULL, &wm,
 			&class);
-	XFree(sizeh);
 }
 
 int
